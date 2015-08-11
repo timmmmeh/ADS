@@ -33,7 +33,7 @@ class DynamicArray
 			last = self._A[self._n]
 			self._n--
 			difference = self._capacity - self._n
-			if (self._n/self._capacity) > 0.75:
+			if (self._n/self._capacity) < 0.75:
 				self._resize(self._n - (difference/0.5)
 			return 'Array shrunk'
 		else:
