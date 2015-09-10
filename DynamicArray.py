@@ -1,6 +1,6 @@
 import ctypes
 
-class DynamicArray
+class DynamicArray:
 
 	def __init__(self):
 		self._n = 0
