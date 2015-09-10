@@ -17,7 +17,7 @@ class DynamicArray
 
 	def append(self, obj):
 		if self._n == self._capacity:
-			self.-resize(2 * self._capacity)
+			self.resize(2 * self._capacity)
 		self._A[self._n] = obj
 		self._n += 1
 
@@ -31,7 +31,7 @@ class DynamicArray
 	def pop(self):
 		if self._n > 0:
 			last = self._A[self._n]
-			self._n--
+			self._n-=1
 			difference = self._capacity - self._n
 			if (self._n/self._capacity) < 0.75:
 				self._resize(self._n - (difference/0.5)
