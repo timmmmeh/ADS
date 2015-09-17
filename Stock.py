@@ -6,6 +6,8 @@ class BuySell:
         self.buy = []
         self.sell = []
         self.gen_rand()
+        self.create_heap()
+        self.work()
 
     def gen_rand(self):
         for i in range(10):
@@ -13,15 +15,12 @@ class BuySell:
             self.sell.append(random.randint(0, 100))
         print("Random Numbers")
         self.print_heap()
-        self.create_heap()
-
 
     def create_heap(self):
         heapq.heapify(self.buy)
         heapq.heapify(self.sell)
         print("Heapify")
         self.print_heap()
-        self.work()
 
     def print_heap(self):
         print("buy: ", self.buy)
@@ -37,7 +36,6 @@ class BuySell:
             else:
                 heapq.heappop(self.buy)
                 heapq.heappop(self.sell)
-
 
 if __name__ == '__main__':
     BuySell()
