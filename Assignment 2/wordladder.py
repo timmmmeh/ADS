@@ -10,10 +10,10 @@ class Find:
         self.dictionary = sorted(self.dictionary)
         self.queue = Queue.Queue()
         self.bad_words = []
-        """self.start_word = self.input()
-        self.end_word = self.input()"""
-        self.start_word = "three"
-        self.end_word = "honey"
+        self.start_word = self.input()
+        self.end_word = self.input()
+        """self.start_word = "three"
+        self.end_word = "honey"""""
         self.start_change()
 
     def start_change(self):
@@ -35,7 +35,7 @@ class Find:
                 new = ''.join(word)
                 #work on bad_words. not working yet
                 if self.search(new, self.dictionary) == True and new != unchanged and new != parents[len(parents)-1] and self.search(new, self.bad_words) == False:
-                    lst = parents
+                    lst = list(parents)
                     lst.append(new)
                     self.queue.put({new:lst})
                     self.bad_words.append(new)
@@ -63,7 +63,7 @@ class Find:
 
     def input(self):
         word = raw_input("Enter a 5 letter word ")
-        while self.search(word) == False:
+        while self.search(word, self.dictionary) == False:
             print "that word is not in the dictionary"
             word = raw_input("Enter a 5 letter word ")
         return word
