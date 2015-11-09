@@ -4,8 +4,6 @@ import Queue
 
 class Find:
     def __init__(self):
-        self.start = None
-        self.end = None
         self.dictionary = self.read_dictionary("dictionary")
         self.dictionary = sorted(self.dictionary)
         self.queue = Queue.Queue()
@@ -16,12 +14,13 @@ class Find:
         # self.end_word = "weird"
         self.start_change()
 
+    #runs change as many times as it needs to
     def start_change(self):
         word = self.start_word
         parents = [self.start_word]
+        self.queue.put({word:parents})
         while self.change(word, parents) == False:
             new_word = self.queue.get()
-            print new_word
             word = new_word.items()[0][0]
             parents = new_word.items()[0][1]
 
@@ -35,7 +34,7 @@ class Find:
                 new = ''.join(word)
                 # Checks if new is a real word, isn't the same word that was passed in, isnt the same word as the parent
                 # and isnt a word that has already been used.
-                if self.search(new, self.dictionary) == True and new != unchanged and new != parents[len(parents)-1] \
+                if self.search(new, self.dictionary) == True and new != unchanged and new != parents[len(parents)-1]\
                         and self.search(new, self.bad_words) == False:
                     # creates a new list
                     lst = list(parents)
@@ -50,20 +49,28 @@ class Find:
                 # if the new word is the end word then print the path
                 if new == self.end_word:
                     print_string = ""
+                    # add all the parents to a variable
                     for i in range(len(parents)):
                         print_string += parents[i] + " -> "
+                    # print the variable
                     print_string += new
                     print print_string
+                    # return True
                     return True
-                if len(self.dictionary) == len(self.bad_words):
-                    print "Connection can not be found"
             word = list(unchanged)
+        # if there is no q left then there must be no other words that it can match
+        # therefore the program must be done
+        if self.queue.qsize() == 0:
+                print "Connection can not be found"
+                return True
         return False
 
+    # Binery search that can take different lists
     def search(self, word, list):
         front_position = 0
-        back_position  = len(list)-1
+        back_position = len(list)-1
         found = False
+        #while there are words left and the word hasnt been found
         while front_position <= back_position and not found:
             midpoint = (front_position + back_position)/2
             if word == list[midpoint]:
@@ -75,6 +82,7 @@ class Find:
                     front_position = midpoint+1
         return found
 
+    # asks for improt
     def input(self):
         word = raw_input("Enter a 5 letter word ")
         while self.search(word, self.dictionary) == False:
@@ -82,7 +90,7 @@ class Find:
             word = raw_input("Enter a 5 letter word ")
         return word
 
-
+    # reads all words from the given dictionary
     def read_dictionary(self, location):
         words = []
         with open(location) as item:
