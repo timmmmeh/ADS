@@ -23,6 +23,8 @@ class Find:
             new_word = self.queue.get()
             word = new_word.items()[0][0]
             parents = new_word.items()[0][1]
+        self.restart()
+
 
     def change(self, word, parents):
         unchanged = word
@@ -99,6 +101,15 @@ class Find:
                 words.append(line.lower()[:-1])
                 line_number += 1
         return words
+
+    #when a link has been shown you can run the programme again
+    def restart(self):
+        self.bad_words = []
+        self.queue = Queue.Queue()
+        self.start_word = self.input()
+        self.end_word = self.input()
+        self.start_change()
+
 
 if __name__ == '__main__':
     Find()
