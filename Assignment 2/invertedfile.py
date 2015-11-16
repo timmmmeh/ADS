@@ -2,10 +2,10 @@ __author__ = 'Timmmmeh'
 class Invert:
     def __init__(self):
         self.dictionary_of_words = {"hello":[], "my":[], "name":[], "is":[], "tim":[], "welp":[]}
-        self.read_dictionary()
+        self.read_document()
         self.display()
 
-    def read_dictionary(self):
+    def read_document(self):
         line_count = 0
         with open("Document") as item:
             for line in item.readlines():
